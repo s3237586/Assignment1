@@ -16,14 +16,32 @@ if (!mysql_select_db(DB_NAME, $dbconn)) {
 exit;
 }
 echo 'Connected to database ' . DB_NAME . "\n";
+
+
+$region = mysql_query("SELECT * FROM region");
+
+while($row = mysql_fetch_array($region))
+  {
+ // echo $row['region_id'] . " " . $row['region_name'];
+ // echo "\n";
+  }
+
+$grape_v = mysql_query("SELECT * FROM grape_variety");
+
+while($row = mysql_fetch_array($grape_v))
+  {
+ // echo $row['variety_id'] . " " . $row['variety'];
+ // echo "\n";
+  }
+
+
+
+
+    echo "<form action='' method='post' name='wineryform'>";
+    echo "<table width='100%'>";
+    echo "<tr><td>Wine Name:</td><td> <input class='text' name='winename' type='text'  /></td></tr>";
+    echo "<tr><td>Winery Name:</td><td> <input class='text' name='wineryname' type='text'  /></td></tr>";
 ?>
-
-
-		<form action="" method="post" name="registerform">
-        	<table width="100%">
-          	<tr><td>Wine Name:</td><td> <input class="text" name="winename" type="text"  /></td></tr>
-          	<tr><td>Winery Name:</td><td> <input class="text" name="wineryname" type="text"  /></td></tr>
-
 </body>
 </head>
 </html>
