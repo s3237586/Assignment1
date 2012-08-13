@@ -54,16 +54,16 @@ $result = @ mysql_query($query);
 
 	$rowsFound = @ mysql_num_rows($result);
 	// If the query has results ...
-    	if ($rowsFound > 0) {
-      // ... print out a header
-      print "Wines of $regionName<br>";
-
-      // and start a <table>.
+    	if ($rowsFound > 0) {     
+	
+	print "<h3>Region: $regionName<br>"; 
+     
       print "\n<table>\n<tr>" .
           "\n\t<th>Wine ID</th>" .
           "\n\t<th>Wine Name</th>" .
           "\n\t<th>Year</th>" .
           "\n\t<th>Winery</th>" .
+	   "\n\t<th>Grape Variety</th>" .
           "\n\t<th>Description</th>\n</tr>";
 
       // Fetch each of the query rows
@@ -73,6 +73,7 @@ $result = @ mysql_query($query);
             "\n\t<td>{$row["wine_name"]}</td>" .
             "\n\t<td>{$row["year"]}</td>" .
             "\n\t<td>{$row["winery_name"]}</td>" .
+	     "\n\t<td>{$row["variety"]}</td>" .
             "\n\t<td>{$row["description"]}</td>\n</tr>";
       } // end while loop body
 
