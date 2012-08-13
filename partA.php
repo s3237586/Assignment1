@@ -17,7 +17,7 @@ exit;
 }
 //echo 'Connected to database ' . DB_NAME . "\n";
     echo "<h2>Wine Search Page</h2>";
-    echo "<form action='' method='post' name='wineryform'>";
+    echo "<form action='results.php' method='GET' name='wineryform'>";
     echo "<table width='100%'>";
     echo "<tr><td>Wine Name:</td><td> <input class='text' name='winename' type='text'  /></td></tr>";
     echo "<tr><td>Winery Name:</td><td> <input class='text' name='wineryname' type='text'  /></td></tr>";
@@ -42,8 +42,17 @@ exit;
 	// echo $row['variety_id'] . " " . $row['variety'];
  	// echo "\n";
   	}
-	echo "</select></td></tr>";
-
+	echo "</select></td></tr>";    
+	
+	$years = mysql_query("SELECT DISTINCT year from wine ORDER BY year ASC");
+	echo "<tr><td>Year: ";
+	echo "<select name='years'>";
+	while($row = mysql_fetch_array($years))
+	{
+	echo "<option value='" .$row['year'] . "'>" .$row['year'] ."</option>";
+	}
+	echo "</select></td></tr>";  
+		
     echo "<tr><td>Minimum number of wines in stock:</td><td> <input class='text' name='wineinstock' type='text'  /></td></tr>";
     echo "<tr><td>Minimum number of wines ordered:</td><td> <input class='text' name='wineordered' type='text'  /></td></tr>";
     echo "<tr><td>Dollar cost range: </td><td> <input class='text' name='dcr' type='text'  /></td></tr>";
