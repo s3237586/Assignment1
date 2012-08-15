@@ -21,6 +21,8 @@ $grapev = $_GET['grape_v'];
 $minyear = $_GET['minyears'];
 $maxyear = $_GET['maxyears'];
 $minstock = $_GET['wineinstock'];
+$lowvalue = $_GET['lowvalue'];
+$maxvalue = $_GET['maxvalue'];
 
 
 // Start a query ...
@@ -30,6 +32,15 @@ WHERE winery.region_id = region.region_id
 AND wine.winery_id = winery.winery_id
 AND wine.wine_type = grape_variety.variety_id
 AND inventory.wine_id = wine.wine_id";
+
+//$query = "SELECT wine.wine_id, wine_name, description, year, winery_name, variety, on_hand, cost, qty, qty * price as revenue
+//FROM winery, region, wine, grape_variety, inventory, items
+//WHERE winery.region_id = region.region_id
+//AND wine.winery_id = winery.winery_id
+//AND wine.wine_type = grape_variety.variety_id
+//AND inventory.wine_id = wine.wine_id
+//AND items.item_id = wine.wine_id";
+
 
 
   // ... then, if the user has specified a region, add the regionName
@@ -54,6 +65,12 @@ AND inventory.wine_id = wine.wine_id";
   }
   if (isset($minstock) && $minstock != "") {
     $query .= " AND on_hand>= '{$minstock}'";
+  }
+  if (isset($lowvalue) && $lowvalue != "") {
+    $query .= " AND cost>= '{$lowvalue}'";
+  }
+  if (isset($maxvalue) && $maxvalue != "") {
+    $query .= " AND cost<= '{$maxvalue}'";
   }  
 
 
@@ -73,6 +90,8 @@ AND inventory.wine_id = wine.wine_id";
           "\n\t<th>Wine Name</th>" .
 	   "\n\t<th>Cost</th>" .
 	   "\n\t<th>Stock on hand</th>" .
+	   //"\n\t<th>Stock sold</th>" .
+	   //"\n\t<th>Total sales revenue</th>" .
           "\n\t<th>Year</th>" .
           "\n\t<th>Winery</th>" .
 	   "\n\t<th>Grape Variety</th>" .
@@ -85,6 +104,8 @@ AND inventory.wine_id = wine.wine_id";
             "<td>{$row["wine_name"]}</td>" .
   	     "<td>{$row["cost"]}</td>" .	
 	     "<td align='center'>{$row["on_hand"]}</td>" .
+	     //"<td align='center'>{$row["qty"]}</td>" .
+	     //"<td align='center'>{$row["revenue"]}</td>" .
             "<td>{$row["year"]}</td>" .
             "<td align='center'>{$row["winery_name"]}</td>" .
 	     "<td align='center'>{$row["variety"]}</td>" .
@@ -97,7 +118,7 @@ AND inventory.wine_id = wine.wine_id";
 
     print "{$rowsFound} records found matching your criteria<br>";
 
-//echo "$query";
+echo "$query";
 
 ?>
 </body>
